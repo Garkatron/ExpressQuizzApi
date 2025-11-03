@@ -37,6 +37,12 @@ import { RATE_LIMIT_CONFIG } from '#configs/ratelimit'
 import { asyncHandler } from '#helpers/utils'
 import { SLOWDOWN_CONFIG } from '#configs/slowdown'
 
+// ? User routes
+import userRoutes from "#routes/UserRoutes";
+import questionRoutes from "#routes/QuestionRoutes";
+import collectionRoutes from "#routes/CollectionRoutes";
+import { connectDB } from '#databases/mongoose'
+
 // * |> ------------------------------------------------------------------------- <|
 
 dotenv.config({ path: '.env' });
@@ -103,6 +109,10 @@ app.use((pinoHttp as any)({ logger }));
 const swaggerSpec = swaggerJSDoc(SWAGGER_CONFIG)
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// ? Database
+const MONGO_URI: string = process.env.MONGO_URI as string;
+await connectDB(MONGO_URI);
+
 // ? Root Get
 app.get(
     '/',
@@ -113,6 +123,20 @@ app.get(
 )
 
 // * routes
+
+const API_PREFIX: string = process.env.API_PREFIX as string;
+const API_VERSION: string = process.env.API_VERSION as string;
+
+
+const PREFIX = `${API_PREFIX}/${API_VERSION}`;
+
+logger.info(`Using prefix: ${PREFIX}`);
+
+app.use(`${PREFIX}/users`, userRoutes);
+app.use(`${PREFIX}/questions`, questionRoutes);
+app.use(`${PREFIX}/collections`, collectionRoutes);
+
+
 
 // ? Finished setup
 app.listen(app.get('port'), () => {

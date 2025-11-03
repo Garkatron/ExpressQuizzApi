@@ -2,9 +2,8 @@ import mongoose from 'mongoose';
 
 // * DB UTILS
 
-const uri: string = process.env.MONGO_URI as string;
 
-export const connectDB = async (): Promise<void> => {
+export const connectDB = async (uri: string): Promise<void> => {
   try {
     await mongoose.connect(uri);
     console.log('MongoDB connected');

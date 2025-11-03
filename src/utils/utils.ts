@@ -1,8 +1,9 @@
 import { Types } from 'mongoose';
 import { ERROR_MESSAGES, UserPermissions } from '../constants.js';
+import { IUser } from '../models/User.js';
 
 export function has_ownership_or_admin(
-  user: { permissions: Map<UserPermissions, boolean>; _id: Types.ObjectId },
+  user: IUser,
   resourceOwnerId: Types.ObjectId | string
 ): void {
   const isAdmin = user.permissions.get(UserPermissions.ADMIN) === true;

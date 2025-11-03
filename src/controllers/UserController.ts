@@ -6,6 +6,7 @@ import { send_response_created, send_response_successful, send_response_unsucces
 import { compare_password, generate_access_token, hash_password } from "../utils/hashing.js";
 import { has_ownership_or_admin } from "../utils/utils.js";
 import { AuthenticatedRequest } from "../interfaces/express.js";
+import { sanitize } from "../utils/sanitize.js";
 
 interface RegisterUserBody {
   name: string;
@@ -158,7 +159,7 @@ export const deleteUser = async (
     const currentUser = await user_exists({ name: req.user?.name });
     const userToDelete = await user_exists({ id });
 
-    has_ownership_or_admin({"permissions": currentUser.permissions, "_id": currentUser._id}, userToDelete._id);
+    has_ownership_or_admin(currentUser, userToDelete._id);
 
     await userToDelete.deleteOne();
 
@@ -169,7 +170,7 @@ export const deleteUser = async (
 };
 
 export const editUser = async (
-  req: Request<{ id: string }, {}, EditUserBody>,
+  req: AuthenticatedRequest<{ id: string }, {}, EditUserBody>,
   res: Response
 ): Promise<void> => {
   try {

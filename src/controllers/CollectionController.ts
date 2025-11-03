@@ -17,7 +17,7 @@ interface CreateCollectionBody {
   questions?: string[];
 }
 
-type EditCollectionBody = Partial<CreateCollectionBody>;
+// type EditCollectionBody = Partial<CreateCollectionBody>;
 
 
 interface FilterCollectionsBody {

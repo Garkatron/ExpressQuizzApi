@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import { ERROR_MESSAGES, UserPermissions } from '../constants.js';
-import { IUser } from '../models/User.js';
+import { ERROR_MESSAGES, UserPermissions } from '#constants';
+import { IUser } from '#models/User.js';
 
 export function has_ownership_or_admin(
   user: IUser,

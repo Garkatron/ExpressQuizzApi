@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES, REGEX } from "../constants.js";
+import { ERROR_MESSAGES, REGEX } from "#constants";
 
 export function is_valid_string(str: unknown): str is string {
   return typeof str === 'string' && str.trim().length > 0;

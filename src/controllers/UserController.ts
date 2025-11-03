@@ -1,12 +1,12 @@
-import { ERROR_MESSAGES, UserPermissions } from "../constants.js";
-import User, { IUser } from "../models/User.js";
-import { has_valid_email, has_valid_name, has_valid_password } from "../utils/format.js";
+import { ERROR_MESSAGES, UserPermissions } from "#constants";
+import User, { IUser } from "#models/User";
+import { has_valid_email, has_valid_name, has_valid_password } from "#utils/format";
 import { Request, Response } from 'express';
-import { send_response_created, send_response_successful, send_response_unsuccessful } from "../utils/responses.js";
-import { compare_password, generate_access_token, hash_password } from "../utils/hashing.js";
-import { has_ownership_or_admin } from "../utils/utils.js";
-import { AuthenticatedRequest } from "../interfaces/express.js";
-import { sanitize } from "../utils/sanitize.js";
+import { send_response_created, send_response_successful, send_response_unsuccessful } from "#utils/responses";
+import { compare_password, generate_access_token, hash_password } from "#utils/hashing";
+import { has_ownership_or_admin } from "#utils/utils";
+import { AuthenticatedRequest } from "#interfaces/express";
+import { sanitize } from "#utils/sanitize";
 
 interface RegisterUserBody {
   name: string;

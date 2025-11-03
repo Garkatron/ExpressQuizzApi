@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { IUser } from '../models/User.ts';
+import { IUser } from '#models/User';
 
 export interface AuthenticatedRequest<
   Params = Record<string, any>,

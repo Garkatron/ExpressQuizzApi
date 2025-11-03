@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { user_exists } from './UserController.js';
-import { send_response_created, send_response_not_found, send_response_successful, send_response_unsuccessful } from '../utils/responses.js';
-import QuizzCollection from '../models/Collection.js';
-import { ERROR_MESSAGES } from '../constants.js';
-import { has_ownership_or_admin } from '../utils/utils.js';
-import { AuthenticatedRequest } from '../interfaces/express.js';
+import { send_response_created, send_response_not_found, send_response_successful, send_response_unsuccessful } from '#utils/responses';
+import QuizzCollection from '#models/Collection';
+import { ERROR_MESSAGES } from '#constants';
+import { has_ownership_or_admin } from '#utils/utils';
+import { AuthenticatedRequest } from '#interfaces/express';
 import { Types } from 'mongoose';
-import { sanitize } from '../utils/sanitize.js';
+import { sanitize } from '#utils/sanitize';
 
 
 

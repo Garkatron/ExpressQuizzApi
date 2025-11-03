@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { CONFIG } from '../constants.js';
+import { CONFIG } from '#constants';
 import * as bcrypt from 'bcryptjs';
 
 class PasswordHashError extends Error {

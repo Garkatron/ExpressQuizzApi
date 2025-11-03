@@ -1,9 +1,9 @@
-import { ERROR_MESSAGES } from "../constants.js";
-import { AuthenticatedRequest } from "../interfaces/express.js";
-import Question, { IQuestion } from "../models/Question.js";
-import { is_valid_string } from "../utils/format.js";
-import { send_response_created, send_response_not_found, send_response_successful, send_response_unsuccessful } from "../utils/responses.js";
-import { has_ownership_or_admin } from "../utils/utils.js";
+import { ERROR_MESSAGES } from "#constants";
+import { AuthenticatedRequest } from "#interfaces/express";
+import Question, { IQuestion } from "#models/Question";
+import { is_valid_string } from "#utils/format";
+import { send_response_created, send_response_not_found, send_response_successful, send_response_unsuccessful } from "#utils/responses";
+import { has_ownership_or_admin } from "#utils/utils";
 import { user_exists } from "./UserController.js";
 import { Request, Response } from 'express';
 

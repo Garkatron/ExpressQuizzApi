@@ -8,9 +8,9 @@
   "scripts": {
     "prettier": "prettier --write 'src/**/*.{ts,js}'",
     "formatter": "npm run prettier",
-"dev": "cross-env NODE_ENV=development nodemon --watch src --ext ts,js,ejs --exec \"tsx src/main.ts\"",
+    "dev": "cross-env NODE_ENV=development nodemon --watch src --ext ts,js,ejs --exec \"tsx src/main.ts\"",
     "build": "rimraf dist && tsc -p tsconfig.json && shx cp -r src/views dist",
-"start": "cross-env NODE_ENV=production node dist/main.js",
+    "start": "cross-env NODE_ENV=production node dist/main.js",
     "test": "cross-env NODE_ENV=test vitest run",
     "test:watch": "cross-env NODE_ENV=test vitest watch",
     "clean": "rimraf dist"

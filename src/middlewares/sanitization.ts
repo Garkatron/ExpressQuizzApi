@@ -1,0 +1,21 @@
+import { Request, Response, NextFunction } from 'express'
+import { validationResult, Result, ValidationError } from 'express-validator'
+
+export const handle_validation_errors = (req: Request, res: Response, next: NextFunction): void => {
+    const errors: Result<ValidationError> = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        res.status(400).json({
+            success: false,
+            message: 'Validation errors',
+            errors: errors.array().map((err) => ({
+                field: err.type === 'field' ? err.path : undefined,
+                message: err.msg,
+                value: err.type === 'field' ? err.value : undefined
+            }))
+        })
+        return
+    }
+
+    next()
+}

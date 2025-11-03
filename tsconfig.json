@@ -3,10 +3,28 @@
     "outDir": "dist",
     "target": "ESNext",
     "module": "NodeNext",
-    "moduleResolution": "nodenext", 
-
-    "typeRoots": ["node_modules/@types/"],
-
+    "moduleResolution": "nodenext",
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "#configs/*": ["./src/configs/*"],
+      "#helpers/*": ["./src/helpers/*"],
+      "#controllers/*": ["./src/controllers/*"],
+      "#databases/*": ["./src/databases/*"],
+      "#dtos/*": ["./src/dtos/*"],
+      "#interfaces/*": ["./src/interfaces/*"],
+      "#middlewares/*": ["./src/middlewares/*"],
+      "#models/*": ["./src/models/*"],
+      "#modules/*": ["./src/modules/*"],
+      "#routes/*": ["./src/routes/*"],
+      "#utils/*": ["./src/utils/*"],
+      "#constants": ["./src/constants.ts"]
+    },
+    "typeRoots": [
+      "node_modules/@types/"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "downlevelIteration": true,
@@ -22,6 +40,15 @@
     "noImplicitThis": false,
     "isolatedModules": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
+  "types": [
+    "node",
+    "module-alias"
+  ]
 }

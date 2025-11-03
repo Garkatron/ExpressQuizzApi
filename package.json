@@ -4,17 +4,30 @@
   "description": "Express clean arhitecture for using OOP and MVC pattern",
   "main": "dist/main.js",
   "type": "module",
+  
   "scripts": {
     "prettier": "prettier --write 'src/**/*.{ts,js}'",
     "formatter": "npm run prettier",
-    "dev": "cross-env NODE_ENV=development nodemon --watch src --ext ts,js,ejs --exec \"node --loader ts-node/esm src/main.ts\"",
-    "build": "rimraf dist && tsc -p tsconfig.json && shx cp -r src/views dist && npm run formatter",
-    "start": "cross-env NODE_ENV=production node dist/main.js",
-    "start:local": "cross-env NODE_ENV=production pm2 start dist/pm2.config.js",
-    "start:docker": "cross-env NODE_ENV=production pm2-runtime dist/pm2.config.js",
+"dev": "cross-env NODE_ENV=development nodemon --watch src --ext ts,js,ejs --exec \"tsx src/main.ts\"",
+    "build": "rimraf dist && tsc -p tsconfig.json && shx cp -r src/views dist",
+"start": "cross-env NODE_ENV=production node dist/main.js",
     "test": "cross-env NODE_ENV=test vitest run",
     "test:watch": "cross-env NODE_ENV=test vitest watch",
     "clean": "rimraf dist"
+  },
+  "imports": {
+    "#configs/*": "./dist/configs/*.js",
+    "#helpers/*": "./dist/helpers/*.js",
+    "#controllers/*": "./dist/controllers/*.js",
+    "#databases/*": "./dist/databases/*.js",
+    "#dtos/*": "./dist/dtos/*.js",
+    "#interfaces/*": "./dist/interfaces/*.js",
+    "#middlewares/*": "./dist/middlewares/*.js",
+    "#models/*": "./dist/models/*.js",
+    "#modules/*": "./dist/modules/*.js",
+    "#routes/*": "./dist/routes/*.js",
+    "#utils/*": "./dist/utils/*.js",
+    "#constants": "./dist/constants.js"
   },
   "author": {
     "name": "@Garkatron",
@@ -47,6 +60,7 @@
     "http-status-codes": "^2.3.0",
     "jsdoc": "^4.0.4",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mongoose": "^8.19.1",
     "morgan": "^1.10.1",
     "pino": "^10.0.0",
@@ -55,7 +69,6 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "true-myth": "^9.2.0",
-    "tsconfig-paths": "^4.2.0",
     "tsyringe": "^4.10.0"
   },
   "devDependencies": {
@@ -63,6 +76,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/hpp": "^0.2.7",
+    "@types/module-alias": "^2.0.4",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.10",
     "@types/nock": "^10.0.3",
@@ -79,6 +93,8 @@
     "shx": "^0.4.0",
     "supertest": "^7.1.4",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "vitest": "^4.0.6"
   }

@@ -26,16 +26,16 @@ import slowDown from 'express-slow-down'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 
-// ? Loggin
-import logger from './helpers/logger.js'
+// ? Logging
+import logger from '#helpers/logger'
 import pinoHttp from 'pino-http'
 
 // ? Configuration
-import SWAGGER_CONFIG from './configs/swagger.js'
-import CORS_CONFIG from './configs/cors.js'
-import { RATE_LIMIT_CONFIG } from './configs/ratelimit.js'
-import { asyncHandler } from './helpers/utils.js'
-import { SLOWDOWN_CONFIG } from './configs/slowdown.js'
+import SWAGGER_CONFIG from '#configs/swagger'
+import CORS_CONFIG from '#configs/cors'
+import { RATE_LIMIT_CONFIG } from '#configs/ratelimit'
+import { asyncHandler } from '#helpers/utils'
+import { SLOWDOWN_CONFIG } from '#configs/slowdown'
 
 // * |> ------------------------------------------------------------------------- <|
 

@@ -1,0 +1,124 @@
+// ? Show errors
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err instanceof Error ? err.stack : err)
+})
+
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled Rejection:', reason instanceof Error ? reason.stack : reason)
+})
+
+// * |> ------------------------------------------------------------------------- <|
+// ? Important imports!
+import express, { NextFunction, Request, Response } from 'express'
+
+// ? Environment
+import { fileURLToPath } from 'url'
+import path from 'path'
+import dotenv from 'dotenv'
+
+// ? Security
+import helmet from 'helmet'
+import cors, { CorsOptions } from 'cors'
+import rateLimit from 'express-rate-limit'
+import slowDown from 'express-slow-down'
+
+// ? Documentation
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+
+// ? Loggin
+import logger from './helpers/logger.js'
+import pinoHttp from 'pino-http'
+
+// ? Configuration
+import SWAGGER_CONFIG from './configs/swagger.js'
+import CORS_CONFIG from './configs/cors.js'
+import { RATE_LIMIT_CONFIG } from './configs/ratelimit.js'
+import { asyncHandler } from './helpers/utils.js'
+import { SLOWDOWN_CONFIG } from './configs/slowdown.js'
+
+// * |> ------------------------------------------------------------------------- <|
+
+if (process.env.NODE_ENV === 'production') {
+    dotenv.config({ path: '.env.production' })
+} else {
+    dotenv.config({ path: '.env' })
+}
+
+console.log(`Running in ${process.env.NODE_ENV} mode`)
+console.log(`API running on port ${process.env.PORT}`)
+
+const port = process.env.PORT || 3000
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const app = express()
+
+// ? Basic
+app.set('port', port)
+app.use(express.json())
+
+// ? Security
+app.use(cors(CORS_CONFIG as CorsOptions))
+
+// ? https://stackoverflow.com/questions/60706823/what-modules-of-helmet-should-i-use-in-my-rest-api
+// ? https://blog.logrocket.com/using-helmet-node-js-secure-application/
+//* Headers
+app.use(helmet())
+
+// * Clickjacking: X-Frame-Options SAMEORIGIN
+app.use(helmet.frameguard({ action: 'sameorigin' }))
+
+// * MIME Sniffing: X-Content-Type-Options nosniff
+app.use(helmet.noSniff())
+
+app.use(helmet.xssFilter())
+
+// * Keep users https
+app.use(helmet.hsts())
+
+// * Hide technology
+app.use(helmet.hidePoweredBy())
+
+// * Avoid more shit
+app.use(helmet.permittedCrossDomainPolicies())
+
+// * Scrapping
+app.use(rateLimit(RATE_LIMIT_CONFIG)) // General
+app.use(slowDown(SLOWDOWN_CONFIG))
+
+// = Middleware de errores
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.error(err)
+    res.status(err.status || 500).json({ error: err.message || 'Server error...' })
+})
+
+// ? Public
+app.use('/shared', express.static(path.join(__dirname, '../shared')))
+app.use(express.static('public'))
+
+// ? Loggin
+app.use((pinoHttp as any)({ logger }))
+
+// ? ApiDoc
+const swaggerSpec = swaggerJSDoc(SWAGGER_CONFIG)
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+// ? Root Get
+app.get(
+    '/',
+    asyncHandler(async (req: Request, res: Response) => {
+        req.log.info('Route /')
+        res.status(200).json({ message: 'My Express + Mongoose + Typescript API!' })
+    })
+)
+
+// * routes
+
+// ? Finished setup
+app.listen(app.get('port'), () => {
+    console.log(`Server running on port ${app.get('port')}`)
+})
+
+export default app

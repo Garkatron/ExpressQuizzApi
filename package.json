@@ -1,0 +1,85 @@
+{
+  "name": "express-mvc-template",
+  "version": "1.0.0",
+  "description": "Express clean arhitecture for using OOP and MVC pattern",
+  "main": "dist/main.js",
+  "type": "module",
+  "scripts": {
+    "prettier": "prettier --write 'src/**/*.{ts,js}'",
+    "formatter": "npm run prettier",
+    "dev": "cross-env NODE_ENV=development nodemon --watch src --ext ts,js,ejs --exec \"node --loader ts-node/esm src/main.ts\"",
+    "build": "rimraf dist && tsc -p tsconfig.json && shx cp -r src/views dist && npm run formatter",
+    "start": "cross-env NODE_ENV=production node dist/main.js",
+    "start:local": "cross-env NODE_ENV=production pm2 start dist/pm2.config.js",
+    "start:docker": "cross-env NODE_ENV=production pm2-runtime dist/pm2.config.js",
+    "test": "cross-env NODE_ENV=test vitest run",
+    "test:watch": "cross-env NODE_ENV=test vitest watch",
+    "clean": "rimraf dist"
+  },
+  "author": {
+    "name": "@Garkatron",
+    "email": "masitacarg@gmail.com",
+    "url": "https://github.com/Garkatron"
+  },
+  "maintainers": [
+    "@Garkatron",
+    "Based in *Restu Wahyu Saputra* express-mvc-pattern"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Garkatron/express_mvc_template"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "http-status-codes": "^2.3.0",
+    "jsdoc": "^4.0.4",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1",
+    "morgan": "^1.10.1",
+    "pino": "^10.0.0",
+    "pino-http": "^11.0.0",
+    "pino-pretty": "^13.1.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "true-myth": "^9.2.0",
+    "tsconfig-paths": "^4.2.0",
+    "tsyringe": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/express-validator": "^2.20.33",
+    "@types/hpp": "^0.2.7",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.10",
+    "@types/nock": "^10.0.3",
+    "@types/node": "^24.9.2",
+    "@types/pino": "^7.0.4",
+    "@types/pino-http": "^5.8.4",
+    "@types/supertest": "^6.0.3",
+    "cross-env": "^10.1.0",
+    "mongodb-memory-server": "^10.3.0",
+    "nock": "^14.0.10",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "shx": "^0.4.0",
+    "supertest": "^7.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.6"
+  }
+}

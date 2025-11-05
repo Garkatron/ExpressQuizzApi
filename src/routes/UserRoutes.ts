@@ -12,7 +12,7 @@ router.post("/register", body("name").trim().escape(), body("email").trim().esca
 
 router.post("/login", body("name").trim().escape(), body("password").trim(), handle_validation_errors, loginUser);
 
-router.delete("/:id", authorize_permissions([UserPermissions.DELETE_USER]), middleware_authenticate_token,
+router.delete("/:id", middleware_authenticate_token, authorize_permissions([UserPermissions.DELETE_USER]),
     param("id").trim().escape(), handle_validation_errors, deleteUser);
 
 router.patch("/:id",

@@ -49,6 +49,7 @@ export function middleware_authenticate_token(
 export function authorize_permissions(requiredPermissions: string[]) {
     return (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
         const userPermissions = req.user?.permissions || {};
+        
         const hasPermission = requiredPermissions.every(p => userPermissions[p] === true);
 
         if (!hasPermission) {

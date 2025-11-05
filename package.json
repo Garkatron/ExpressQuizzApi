@@ -4,7 +4,6 @@
   "description": "Express clean arhitecture for using OOP and MVC pattern",
   "main": "dist/main.js",
   "type": "module",
-  
   "scripts": {
     "prettier": "prettier --write 'src/**/*.{ts,js}'",
     "formatter": "npm run prettier",
@@ -54,6 +53,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.0",
+    "express-slow-down": "^3.0.1",
     "express-validator": "^7.3.0",
     "helmet": "^8.1.0",
     "hpp": "^0.2.3",

@@ -110,8 +110,7 @@ const swaggerSpec = swaggerJSDoc(SWAGGER_CONFIG)
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ? Database
-const MONGO_URI: string = process.env.MONGO_URI as string;
-await connectDB(MONGO_URI);
+await connectDB();
 
 // ? Root Get
 app.get(

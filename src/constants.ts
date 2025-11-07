@@ -30,6 +30,7 @@ export enum ERROR_MESSAGES {
   NEED_OWNERSHIP_OR_ADMIN = 'You must be owner or admin to edit this',
   NEED_ANSWER = 'Your question needs an answer.',
   MISSING_PARAMETERS = 'Missing parameters.',
+  FIELD_NOT_EDITABLE = 'Field not editable'
 }
 
 export enum UserPermissions {

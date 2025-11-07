@@ -105,7 +105,7 @@ export const editQuestion = async (
 
     const allowedFields: (keyof IQuestion)[] = ['question', 'options', 'answer'];
     if (!allowedFields.includes(field as keyof IQuestion)) {
-      send_response_unsuccessful(res, ['Field not editable']);
+      send_response_unsuccessful(res, [ERROR_MESSAGES.FIELD_NOT_EDITABLE]);
       return;
     }
 
@@ -171,7 +171,6 @@ export const deleteQuestion = async (
     send_response_unsuccessful(res, [(error as Error).message]);
   }
 };
-
 export const getQuestions = async (
   req: Request<{}, {}, {}, GetQuestionsQuery>,
   res: Response
@@ -183,16 +182,7 @@ export const getQuestions = async (
 
     const query: any = {};
 
-    if (id) {
-      const question = await Question.findById(id);
-      if (!question) {
-        send_response_not_found(res, [ERROR_MESSAGES.QUESTION_NOT_FOUND]);
-        return;
-      }
-      send_response_successful(res, 'Question', question);
-      return;
-    }
-
+    // Filtrar por owner
     if (ownername) {
       const user = await user_exists({ name: ownername as string });
       if (!user) {
@@ -202,19 +192,35 @@ export const getQuestions = async (
       query.owner = user._id;
     }
 
-    const questions = await Question.find(query)
-      .skip((pageInt - 1) * limitInt)
-      .limit(limitInt)
-      .sort({ createdAt: -1 });
+    let questions;
+
+    if (id) {
+      // Buscar por id y siempre devolver un array
+      const question = await Question.findById(id);
+      questions = question ? [question] : [];
+      if (questions.length === 0) {
+        send_response_not_found(res, [ERROR_MESSAGES.QUESTION_NOT_FOUND]);
+        return;
+      }
+    } else {
+      // Buscar con paginación
+      questions = await Question.find(query)
+        .skip((pageInt - 1) * limitInt)
+        .limit(limitInt)
+        .sort({ createdAt: -1 });
+    }
 
     send_response_successful(res, 'Questions', questions);
+
   } catch (error) {
     send_response_unsuccessful(res, [(error as Error).message]);
   }
 };
 
+
 // === Funciones adicionales (descomentadas) ===
 
+/*
 export const getQuestionsByOwner = async (
   req: Request<{ ownername: string }>,
   res: Response
@@ -262,3 +268,4 @@ export const getAllQuestions = async (_req: Request, res: Response): Promise<voi
     send_response_unsuccessful(res, [(error as Error).message]);
   }
 };
+*/

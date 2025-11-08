@@ -2,7 +2,6 @@ import request from "supertest"
 import { describe, it, expect, afterAll } from "vitest"
 import app from "../src/main"
 import { disconnectDB } from "../src/databases/mongoose"
-import test from "node:test"
 
 describe("GET /", () => {
   it("Should respond with 200", async () => {
@@ -11,9 +10,9 @@ describe("GET /", () => {
   })
 })
 
-const test_password = "testingPassword123";
-const test_username = "testuser";
-const test_email = "test@test.com";
+const test_password = "testingPassword2";
+const test_username = "testuser2";
+const test_email = "test2@test.com";
 
 let test_id: string | null = null;
 
@@ -38,7 +37,7 @@ describe("POST /api/v1/users/register", () => {
 
     expect(res.status).toBe(201)
     expect(res.body).toHaveProperty("data")
-    expect(res.body.data).toHaveProperty("email", "test@test.com")
+    expect(res.body.data).toHaveProperty("email", test_email)
   })
 })
 

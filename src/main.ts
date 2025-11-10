@@ -46,17 +46,16 @@ import { connectDB } from '#databases/mongoose'
 // * |> ------------------------------------------------------------------------- <|
 
 switch (process.env.NODE_ENV) {
-  case 'production':
-    dotenv.config({ path: '.env.production' })
-    break
-  case 'test':
-    dotenv.config({ path: '.env.test' })
-    break
-  default:
-    dotenv.config({ path: '.env' })
-    break
+    case 'production':
+        dotenv.config({ path: '.env.production' })
+        break
+    case 'test':
+        dotenv.config({ path: '.env.test' })
+        break
+    default:
+        dotenv.config({ path: '.env' })
+        break
 }
-
 
 const PORT = process.env.PORT || 3000
 
@@ -111,10 +110,6 @@ app.use(express.static('public'))
 // ? Loggin
 app.use((pinoHttp as any)({ logger }))
 
-// ? ApiDoc
-const swaggerSpec = swaggerJSDoc(SWAGGER_CONFIG)
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-
 // ? Database
 await connectDB()
 
@@ -139,6 +134,21 @@ logger.info(`Using prefix: ${PREFIX}`)
 app.use(`${PREFIX}/users`, userRoutes)
 app.use(`${PREFIX}/questions`, questionRoutes)
 app.use(`${PREFIX}/collections`, collectionRoutes)
+
+// ? ApiDoc
+const swaggerSpec = swaggerJSDoc(SWAGGER_CONFIG)
+app.use(
+    `${PREFIX}/docs`,
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+        customSiteTitle: 'Quiz API Docs',
+        customCss: `
+      .swagger-ui .topbar { 
+        display: none 
+      }
+    `
+    })
+)
 
 // ? Finished setup
 app.listen(app.get('port'), () => {

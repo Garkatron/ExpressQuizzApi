@@ -56,7 +56,58 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-// Methods
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - email
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: Unique ID of the user
+ *           example: "64a8f789f1e6c2a1b2c56795"
+ *         name:
+ *           type: string
+ *           description: User's full name
+ *           example: "John Doe"
+ *         email:
+ *           type: string
+ *           description: User email
+ *           example: "john@example.com"
+ *         score:
+ *           type: integer
+ *           description: User's score
+ *           example: 0
+ *         permissions:
+ *           type: object
+ *           description: Map of permissions (true if granted)
+ *           additionalProperties:
+ *             type: boolean
+ *           example: 
+ *             ADMIN: false
+ *             CREATE_QUESTION: true
+ *             EDIT_QUESTION: true
+ *             DELETE_QUESTION: true
+ *             CREATE_COLLECTION: true
+ *             EDIT_COLLECTION: true
+ *             DELETE_COLLECTION: true
+ *             EDIT_USER: true
+ *             DELETE_USER: true
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Account creation timestamp
+ *           example: "2025-11-10T12:34:56.789Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: Last update timestamp
+ *           example: "2025-11-10T12:35:56.789Z"
+ */
 userSchema.methods.hasPermission = function (this: IUser, perm: string): boolean {
   return this.permissions.get(perm) === true;
 };

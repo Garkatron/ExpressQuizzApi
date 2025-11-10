@@ -155,15 +155,6 @@ router.patch("/:id",
  *         content:
  *           application/json:
  *             example:
- *               - id: "1"
- *                 name: "John Doe"
- *                 email: "john@example.com"
- *     responses:
- *       '200':
- *         description: Successful response
- *         content:
- *           application/json:
- *             example:
  *               - _id: "64a8c123f1e6c2a1b2c56789"
  *                 name: "John Doe"
  *                 email: "john@example.com"

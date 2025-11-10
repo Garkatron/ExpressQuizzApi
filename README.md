@@ -41,41 +41,40 @@
 ## 📂 Project Structure
 
 src/
-├── app.ts
-├── main.ts
-├── configs/
-├── controllers/
-├── databases/
-│ └── mongoose.ts
+├── main.ts         🏛️
+├── configs/        📄
+├── controllers/    🎮
+├── databases/      🗃️
+│ └── mongoose.ts   🧺
 ├── dtos/
 ├── interfaces/
-├── middlewares/
-├── models/
-├── modules/
-├── routes/
-├── utils/
+├── middlewares/    ⚔️
+├── models/         🏘️
+├── routes/         🛣️
+├── utils/          🛠️
 ├── constants.ts
-├── .env.test
-├── .env.production
+├── .env.test       🧪
+├── .env.production 🚀
 ├── .env.example
-└── .env
+└── .env            🏗️
 
-# Architecture Overview
+# 🧱 Architecture Overview
 
-**Controllers** → Handle HTTP requests/responses.
+- **Controllers** → Handle HTTP requests/responses.
 
-**Services** / Modules → Business logic, injected via tsyringe.
+- **Services** / Modules → Business logic, injected via tsyringe.
 
-**Models** → Mongoose schemas.
+- **Models** → Mongoose schemas.
 
-**DTOs & Interfaces** → Define TypeScript types and contracts.
+- **DTOs & Interfaces** → Define TypeScript types and contracts.
 
-**Middlewares** → Validation, Auth, Logging, Error handling.
+- **Middlewares** → Validation, Auth, Logging, Error handling.
 
-**Utils** → **Helpers** (e.g., token generation, formatting).
+- **Utils** → **Helpers** (e.g., token generation, formatting).
 
 _Follows Clean Architecture principles with OOP and dependency injection._
 
+# Scripts
 
 | Command              | Description                             |
 | -------------------- | --------------------------------------- |
@@ -87,25 +86,25 @@ _Follows Clean Architecture principles with OOP and dependency injection._
 | `npm run prettier`   | Format codebase                         |
 | `npm run clean`      | Remove compiled files (`dist/`)         |
 
-# Run tests once
-npm test
+# 🧪 Testing
+* Run tests once
+  * `npm run test`
+* Run tests in watch mode
+  * `npm run test`:watch
 
-# Run tests in watch mode
-npm run test:watch
 
-
-# API Documentation
-Swagger UI is available at:
-http://localhost:4000/api/docs
+# 📖 API Documentation
+> Swagger UI is available at:
+> http://localhost:4000/api/docs
 
 Automatically generated from JSDoc annotations using:
 
-swagger-jsdoc
+* swagger-jsdoc
 
-swagger-ui-express
+* swagger-ui-express
 
 
-# Authentication Flow
+# 🔐 Authentication Flow
 
 1. User registers (/api/v1/auth/register)
 
@@ -116,5 +115,5 @@ swagger-ui-express
 
 4. Middleware verifies token and applies role-based access (e.g. EDIT_COLLECTION, DELETE_QUESTION)
 
-# Licence
+# 📜 Licence
 MIT © 2025 @Garkatron

@@ -24,9 +24,9 @@ router.patch(
   middleware_authenticate_token,
   authorize_permissions([UserPermissions.EDIT_COLLECTION]),
   param('id').trim().escape(),
-  body('name').trim().escape(),
-  body('tags').isArray().withMessage('Tags will be an Array'),
-  body('questions').isArray().withMessage('Questios will be an Array'),
+  body('name').trim().escape().optional(),
+  body('tags').isArray().withMessage('Tags will be an Array').optional(),
+  body('questions').isArray().withMessage('Questios will be an Array').optional(),
   handle_validation_errors,
   editCollection
 );

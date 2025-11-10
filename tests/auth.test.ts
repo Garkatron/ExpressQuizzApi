@@ -74,6 +74,20 @@ describe("DELETE /api/v1/users/:id", () => {
     const res = await request(app)
       .delete(`/api/v1/users/${test_id}`)
       .set("Accept", "application/json")
+
+    if (res.status !== 401) {
+      console.log("Error response:", res.body)
+    }
+    
+    expect(res.status).toBe(401)    
+  })
+})
+
+describe("DELETE /api/v1/users/:id", () => {
+  it("Should can't delete the test user and respond 401", async () => {
+    const res = await request(app)
+      .delete(`/api/v1/users/${test_id}`)
+      .set("Accept", "application/json")
       .set("Authorization", `Bearer ${token}`)
 
     if (res.status !== 200) {
@@ -84,7 +98,6 @@ describe("DELETE /api/v1/users/:id", () => {
     expect(res.body.data).toHaveProperty("_id", test_id as string)
   })
 })
-
 
 afterAll(async () => {
   await disconnectDB()

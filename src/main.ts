@@ -38,108 +38,111 @@ import { asyncHandler } from '#helpers/utils'
 import { SLOWDOWN_CONFIG } from '#configs/slowdown'
 
 // ? User routes
-import userRoutes from "#routes/UserRoutes";
-import questionRoutes from "#routes/QuestionRoutes";
-import collectionRoutes from "#routes/CollectionRoutes";
+import userRoutes from '#routes/UserRoutes'
+import questionRoutes from '#routes/QuestionRoutes'
+import collectionRoutes from '#routes/CollectionRoutes'
 import { connectDB } from '#databases/mongoose'
 
 // * |> ------------------------------------------------------------------------- <|
 
-dotenv.config({ path: '.env' });
-
-if (process.env.NODE_ENV === 'production') {
-    dotenv.config({ path: '.env.production' });
+switch (process.env.NODE_ENV) {
+  case 'production':
+    dotenv.config({ path: '.env.production' })
+    break
+  case 'test':
+    dotenv.config({ path: '.env.test' })
+    break
+  default:
+    dotenv.config({ path: '.env' })
+    break
 }
 
-const PORT = process.env.PORT || 3000;
 
+const PORT = process.env.PORT || 3000
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const app = express();
+const app = express()
 
 // ? Basic
-app.set('port', PORT);
-app.use(express.json());
+app.set('port', PORT)
+app.use(express.json())
 
 // ? Security
-app.use(cors(CORS_CONFIG as CorsOptions));
+app.use(cors(CORS_CONFIG as CorsOptions))
 
 // ? https://stackoverflow.com/questions/60706823/what-modules-of-helmet-should-i-use-in-my-rest-api
 // ? https://blog.logrocket.com/using-helmet-node-js-secure-application/
 //* Headers
-app.use(helmet());
+app.use(helmet())
 
 // * Clickjacking: X-Frame-Options SAMEORIGIN
-app.use(helmet.frameguard({ action: 'sameorigin' }));
+app.use(helmet.frameguard({ action: 'sameorigin' }))
 
 // * MIME Sniffing: X-Content-Type-Options nosniff
-app.use(helmet.noSniff());
+app.use(helmet.noSniff())
 
-app.use(helmet.xssFilter());
+app.use(helmet.xssFilter())
 
 // * Keep users https
-app.use(helmet.hsts());
+app.use(helmet.hsts())
 
 // * Hide technology
-app.use(helmet.hidePoweredBy());
+app.use(helmet.hidePoweredBy())
 
 // * Avoid more shit
-app.use(helmet.permittedCrossDomainPolicies());
+app.use(helmet.permittedCrossDomainPolicies())
 
 // * Scrapping
-app.use(rateLimit(RATE_LIMIT_CONFIG)); // General
-app.use(slowDown(SLOWDOWN_CONFIG));
+app.use(rateLimit(RATE_LIMIT_CONFIG)) // General
+app.use(slowDown(SLOWDOWN_CONFIG))
 
 // = Middleware de errores
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    console.error(err);
-    res.status(err.status || 500).json({ error: err.message || 'Server error...' });
+    console.error(err)
+    res.status(err.status || 500).json({ error: err.message || 'Server error...' })
 })
 
 // ? Public
-app.use('/shared', express.static(path.join(__dirname, '../shared')));
-app.use(express.static('public'));
+app.use('/shared', express.static(path.join(__dirname, '../shared')))
+app.use(express.static('public'))
 
 // ? Loggin
-app.use((pinoHttp as any)({ logger }));
+app.use((pinoHttp as any)({ logger }))
 
 // ? ApiDoc
 const swaggerSpec = swaggerJSDoc(SWAGGER_CONFIG)
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // ? Database
-await connectDB();
+await connectDB()
 
 // ? Root Get
 app.get(
     '/',
     asyncHandler(async (req: Request, res: Response) => {
-        req.log.info('Route /');
-        res.status(200).json({ message: 'My Express + Mongoose + Typescript API!' });
+        req.log.info('Route /')
+        res.status(200).json({ message: 'My Express + Mongoose + Typescript API!' })
     })
 )
 
 // * routes
 
-const API_PREFIX: string = process.env.API_PREFIX as string;
-const API_VERSION: string = process.env.API_VERSION as string;
+const API_PREFIX: string = process.env.API_PREFIX as string
+const API_VERSION: string = process.env.API_VERSION as string
 
+const PREFIX = `${API_PREFIX}/${API_VERSION}`
 
-const PREFIX = `${API_PREFIX}/${API_VERSION}`;
+logger.info(`Using prefix: ${PREFIX}`)
 
-logger.info(`Using prefix: ${PREFIX}`);
-
-app.use(`${PREFIX}/users`, userRoutes);
-app.use(`${PREFIX}/questions`, questionRoutes);
-app.use(`${PREFIX}/collections`, collectionRoutes);
-
-
+app.use(`${PREFIX}/users`, userRoutes)
+app.use(`${PREFIX}/questions`, questionRoutes)
+app.use(`${PREFIX}/collections`, collectionRoutes)
 
 // ? Finished setup
 app.listen(app.get('port'), () => {
-    console.log(`Server running on port ${app.get('port')}`);
+    console.log(`Server running on port ${app.get('port')}`)
 })
 
-export default app;
+export default app

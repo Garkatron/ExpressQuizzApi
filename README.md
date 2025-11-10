@@ -104,7 +104,7 @@ _Follows Clean Architecture principles with OOP and dependency injection._
 
 # 📖 API Documentation
 > Swagger UI is available at:
-> http://localhost:4000/api/docs
+> http://localhost:8080/api/docs
 
 Automatically generated from JSDoc annotations using:
 

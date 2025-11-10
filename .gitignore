@@ -3,6 +3,24 @@
 .env.*
 !.env.example
 
-/logs
-/dist
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+logs/
+*.log
+npm-debug.log*
+
+
+dist/
+build/
+
 /node_modules
+
+.vscode/
+
+*.tmp
+*.temp
+
+

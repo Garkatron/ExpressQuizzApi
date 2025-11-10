@@ -40,6 +40,7 @@
 
 ## 📂 Project Structure
 
+```
 src/
 ├── main.ts         🏛️
 ├── configs/        📄
@@ -57,6 +58,7 @@ src/
 ├── .env.production 🚀
 ├── .env.example
 └── .env            🏗️
+```
 
 # 🧱 Architecture Overview
 

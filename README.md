@@ -1,9 +1,16 @@
 ![logo](image/README/1762774805670.png)
 
 # 🧠 Express Quizz API
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=black)
 
 > RESTful API built with **TypeScript**, **Express**, and **Mongoose**, following a clean MVC architecture.  
 > Includes authentication, authorization, and integration testing using **Vitest** and **Supertest**.
+
+
 
 ---
 
@@ -116,6 +123,18 @@ Automatically generated from JSDoc annotations using:
    * Authorization: Bearer <token>
 
 4. Middleware verifies token and applies role-based access (e.g. EDIT_COLLECTION, DELETE_QUESTION)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!  
+Feel free to open a [pull request](https://github.com/Garkatron/ExpressQuizzApi/pulls) or issue.
+
+1. Fork the repo  
+2. Create a new branch (`feature/my-feature`)  
+3. Commit your changes  
+4. Push to your branch  
+5. Open a Pull Request 🚀
+
 
 # 📜 Licence
 MIT © 2025 @Garkatron

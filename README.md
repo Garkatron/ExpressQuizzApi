@@ -76,7 +76,7 @@ src/
 
 _Follows Clean Architecture principles with OOP and dependency injection._
 
-# Scripts
+# 📑 Scripts
 
 | Command              | Description                             |
 | -------------------- | --------------------------------------- |
